@@ -1,0 +1,39 @@
+{
+  "status": "recorded",
+  "policyId": "bdth0716/smolvla_aloha_test",
+  "revision": "0abb36f31120d809f8c743a39a0252faaf5b84e9",
+  "environment": "gym_aloha/AlohaTransferCube-v0",
+  "seed": 7,
+  "videoUrl": "/robotics/smolvla-rollout.mp4",
+  "posterUrl": "/robotics/smolvla-poster.png",
+  "trajectoryUrl": "/robotics/smolvla-trajectory.json",
+  "frames": 400,
+  "fps": 50,
+  "durationSeconds": 8.0,
+  "success": false,
+  "maxReward": 2.0,
+  "successCriterion": "Environment reward reaches 4: transfer completed above table.",
+  "recordedAt": "2026-10-06T18:48:24.939537+00:00",
+  "device": "cpu",
+  "wallSeconds": 26.690152665949427,
+  "chunkSize": 50,
+  "actionSteps": 50,
+  "flowSteps": 10,
+  "taskInstruction": "Pick up the cube with the right arm and transfer it to the left arm.",
+  "checkpointSha256": "a840d8fe1b529f6bd92dd9b0a73489087a61fcc9dd7ccc3b46cf729bdb6d8cc7",
+  "videoSha256": "9ae1c2751facbba8f46fdf185f07d8caabb85a9a8c540940f833de806600e90e",
+  "checkpointUrl": "https://huggingface.co/bdth0716/smolvla_aloha_test/tree/0abb36f31120d809f8c743a39a0252faaf5b84e9",
+  "trainingDataset": "lerobot/aloha_sim_transfer_cube_human",
+  "limitations": [
+    "Recorded pretrained policy execution in MuJoCo; playback does not run inference in the browser.",
+    "One seeded rollout is not a success-rate benchmark.",
+    "Community-trained checkpoint; no claim of official SmolVLA benchmark performance."
+  ],
+  "versions": {
+    "lerobot": "0.4.3",
+    "torch": "2.7.1",
+    "mujoco": "3.8.1",
+    "gym-aloha": "0.1.4",
+    "transformers": "4.57.6"
+  }
+}

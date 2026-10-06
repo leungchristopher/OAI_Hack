@@ -1,0 +1,13 @@
+import { chromium } from '@playwright/test';
+const browser=await chromium.launch();
+const page=await browser.newPage({viewport:{width:1440,height:1000}});
+await page.goto(process.env.E2E_BASE_URL || 'http://127.0.0.1:5173');
+await page.screenshot({path:'/private/tmp/marginalia-landing.png',fullPage:true});
+await page.getByRole('button',{name:/Explore the Schmidhuber lens/}).click();
+await page.getByRole('button',{name:'Run workflow',exact:true}).click();
+await page.getByText(/0?9 \/ 0?9 instruments complete/).waitFor();
+await page.locator('.react-flow__node[data-id=proposer]').waitFor({state:'visible'});
+await page.screenshot({path:'/private/tmp/marginalia-workspace.png',fullPage:true});
+await page.getByRole('button',{name:'Open experiment',exact:true}).click();
+await page.screenshot({path:'/private/tmp/marginalia-experiment.png',fullPage:true});
+await browser.close();

@@ -1,0 +1,71 @@
+{
+  "generatedAt": "2026-10-06T19:03:22.679Z",
+  "experiment": {
+    "kind": "lstm",
+    "sequence": [
+      1,
+      0,
+      0,
+      0,
+      -1,
+      0,
+      0,
+      0
+    ],
+    "settings": {
+      "forgetBias": 1.5,
+      "inputBias": 0,
+      "outputBias": 1,
+      "ablation": "none"
+    },
+    "cursor": 0
+  },
+  "response": {
+    "output": {
+      "title": "Baseline LSTM write-through on the first symbol with moderate forgetting",
+      "explanation": "Your selected settings are the same as the server baseline: forgetBias = 1.5, inputBias = 0, outputBias = 1, ablation = none, and you are at the current step t = 1 with x = 1. At this step the teaching LSTM computes f = 0.769, i = 0.690, o = 0.769, candidate = 0.762, so retained memory = 0.000 and written memory = 0.525; because the previous cell is 0, the cell becomes 0.525 and the hidden state becomes 0.370. There is no difference from the server baseline at either the selected step or the final step, so this run is currently a direct baseline trace rather than an ablated deviation.",
+      "comparison": "Compared with a hypothetical forget-ablation, the current run preserves the learned forget gate contribution: f multiplies the previous cell, rather than being clamped to 1, so future steps can gradually downweight or keep old content. Unlike input ablation, i is not clamped to 0, so the network can still write new information; and unlike output ablation, o is not clamped to 0, so the cell content is visible in the hidden state. The baseline therefore sits exactly in the regime the paper describes as using adaptive forget gates to reset or gradually fade memory when content becomes obsolete, rather than forcing either perpetual retention or no writing at all.",
+      "paperConnection": "The paper explicitly motivates forget gates as a way to reset memory blocks when contents are out of date: “use adaptive forget gates, which learn to reset memory blocks once their contents are out of date and hence useless” (forget-2000 / p2). It also contrasts this with fixed decay, noting that decay sacrifices handling of unknown causal delays, while forget-gated LSTM improves performance on continual prediction tasks (forget-2000 / p6 and p3). The mechanism here matches that story: at t = 1 the network writes new evidence into cell state, and on later steps the retained term f·c_t-1 remains the channel for preserving or fading earlier content.",
+      "suggestedExperiment": "Change only the ablation to forget, so f is clamped to 1 while leaving input and output gates intact. If the model is relying on controlled forgetting to regulate old evidence, you should see the early positive write persist more strongly through the later zeros and the negative symbol, increasing carryover in the cell trace relative to the current baseline.",
+      "socraticQuestion": "If you clamp the forget gate to 1 while keeping i and o unchanged, which part of the trace should change first: the retained term, the cell state, or the hidden state, and why would that reveal whether the model is using forgetting to suppress stale memory?",
+      "evidenceRefs": [
+        {
+          "documentId": "forget-2000",
+          "passageId": "p2",
+          "supportingExcerpt": "use adaptive forget gates, which learn to reset memory blocks once their contents are out of date and hence useless"
+        },
+        {
+          "documentId": "forget-2000",
+          "passageId": "p3",
+          "supportingExcerpt": "LSTM with forget gates"
+        },
+        {
+          "documentId": "forget-2000",
+          "passageId": "p5",
+          "supportingExcerpt": "Using a large bias (5.0) for the forget gates, extended LSTM solved the task as quickly as standard LSTM"
+        },
+        {
+          "documentId": "forget-2000",
+          "passageId": "p6",
+          "supportingExcerpt": "state decay does not significantly improve experimental performance"
+        },
+        {
+          "documentId": "lstm-1997",
+          "passageId": "p1",
+          "supportingExcerpt": "The gate units open and close access to CEC"
+        },
+        {
+          "documentId": "lstm-1997",
+          "passageId": "p2",
+          "supportingExcerpt": "LSTM can learn to bridge minimal time lags in excess of 1000 discrete time steps by enforcing constant error flow"
+        }
+      ]
+    },
+    "usage": {
+      "requests": 1,
+      "inputTokens": 5816,
+      "outputTokens": 920
+    },
+    "model": "gpt-5.4-mini"
+  }
+}

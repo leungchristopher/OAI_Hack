@@ -1,0 +1,53 @@
+.knowledge-world[data-theme='brush'] {
+  --world-bg: var(--world-paper);
+  --world-text: var(--world-ink);
+  --world-muted: var(--world-wood);
+  --world-accent: var(--world-vermilion);
+  --world-control: var(--world-paper);
+  --world-control-hover: var(--world-shoji);
+  --world-border: var(--world-stone-edge);
+  --world-shadow: var(--world-stone);
+  --world-memory: var(--world-cypress);
+  --world-rna: var(--world-vermilion);
+  --world-robotics: var(--world-wood);
+  --world-alphago: var(--world-ink);
+  background: var(--world-bg);
+  color: var(--world-text);
+}
+.knowledge-world[data-theme='brush'] .world-header {
+  border-bottom: 2px solid var(--world-ink);
+  padding-bottom: 18px;
+}
+.knowledge-world[data-theme='brush'] .world-header h1 { text-shadow: none; }
+.knowledge-world[data-theme='brush'] .world-map {
+  border-color: var(--world-wood);
+  box-shadow: 4px 5px var(--world-stone);
+}
+.knowledge-world[data-theme='brush'] .world-house-label {
+  background: var(--world-paper);
+  border: 1px solid var(--world-wood);
+  border-bottom: 3px solid var(--world-wood);
+  box-shadow: 2px 2px var(--world-stone-edge);
+}
+.knowledge-world[data-theme='brush'] .world-house-label strong { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+.knowledge-world[data-theme='brush'] .world-destinations { gap: 0; border-block: 1px solid var(--world-border); }
+.knowledge-world[data-theme='brush'] .world-destinations button {
+  border: 0;
+  border-inline-end: 1px solid var(--world-border);
+  background: transparent;
+  box-shadow: none;
+  padding-block: 20px;
+}
+.knowledge-world[data-theme='brush'] .world-destinations button:last-child { border-inline-end: 0; }
+.knowledge-world[data-theme='brush'] .world-destinations button:hover { background: var(--world-shoji); }
+.knowledge-world[data-theme='brush'] .world-portrait-hit span {
+  background: var(--world-paper);
+  color: var(--world-ink);
+  border: 1px solid var(--world-wood);
+  box-shadow: 2px 2px var(--world-stone-edge);
+}
+.knowledge-world[data-theme='brush'] .world-map-status { border: 1px solid var(--world-stone-edge); }
+@media (max-width: 700px) {
+  .knowledge-world[data-theme='brush'] .world-destinations button { border-bottom: 1px solid var(--world-border); }
+  .knowledge-world[data-theme='brush'] .world-destinations button:nth-child(2n) { border-inline-end: 0; }
+}

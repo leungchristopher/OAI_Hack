@@ -1,0 +1,473 @@
+{
+  "generatedAt": "2026-10-06T18:59:48.798Z",
+  "models": {
+    "fast": "gpt-5.4-mini",
+    "reasoning": "gpt-5.4"
+  },
+  "usage": {
+    "requests": 7,
+    "inputTokens": 52999,
+    "outputTokens": 12948,
+    "unmeasuredRequests": 0
+  },
+  "artifacts": {
+    "reader": {
+      "summary": "The selected passages argue that standard LSTM memory can fail in continual settings because saturated cells block error flow, and that adaptive forget gates are the proposed fix. Experimental results on Continuous Embedded Reber Grammar (CERG) show forget-gate LSTM variants outperform fixed state-decay and standard LSTM variants, though performance depends on the forget-gate bias and the comparison is limited to the reported averages over 100 networks.",
+      "claims": [
+        {
+          "id": "c1",
+          "text": "Standard LSTM memory can cease functioning in continual prediction when cell outputs saturate, because saturation makes the derivative vanish, blocks incoming errors, and turns the cell into an ordinary BPTT unit; the paper’s proposed mechanism is adaptive forget gates that learn to reset outdated memory, either abruptly or gradually.",
+          "evidenceRefs": [
+            {
+              "documentId": "forget-2000",
+              "passageId": "p1",
+              "supportingExcerpt": "Saturation will make h’s derivative vanish, thus blocking incoming errors, and make the cell output equal the output gate activation; that is, the entire memory cell will degenerate into an ordinary BPTT unit, so that the cell will cease functioning as a memory."
+            },
+            {
+              "documentId": "forget-2000",
+              "passageId": "p2",
+              "supportingExcerpt": "Our solution to the problem above is to use adaptive forget gates, which learn to reset memory blocks once their contents are out of date and hence useless. By resets, we do not mean only immediate resets to zero but also gradual resets corresponding to slowly fading cell states."
+            }
+          ],
+          "limitations": [
+            "This claim is stated as a mechanism/problem diagnosis, not directly demonstrated by a controlled ablation in the provided excerpts.",
+            "The passage attributes the issue to saturation in the continual setting; it does not quantify how often or under what exact data conditions saturation occurs."
+          ]
+        },
+        {
+          "id": "c2",
+          "text": "On CERG, the reported experimental comparison shows that adding forget gates improves continual prediction relative to standard LSTM and fixed state decay, but the best variant in the table is not perfect: standard LSTM and state-decay LSTM have 0% perfect solutions, whereas forget-gate LSTM reaches 18% perfect solutions and 29% good solutions, and forget gates with sequential α decay reach 62% perfect solutions.",
+          "evidenceRefs": [
+            {
+              "documentId": "forget-2000",
+              "passageId": "p3",
+              "supportingExcerpt": "Table 2: Continuous Embedded Reber Grammar (CERG). Algorithm % Solutionsa % Good Solutionsb % Restc Standard LSTM with external reset 74 (7441) 0 ⟨−⟩ 26 ⟨31⟩ Standard LSTM 0 (-) 1 ⟨1166⟩ 99 ⟨37⟩ LSTM with state decay (0.9) 0 (-) 0 ⟨−⟩ 100 ⟨56⟩ LSTM with forget gates 18 (18,889) 29 ⟨39,171⟩ 53 ⟨145⟩ LSTM with forget gates and sequential α decay 62 (14,087) 6 ⟨68,464⟩ 32 ⟨30⟩"
+            },
+            {
+              "documentId": "forget-2000",
+              "passageId": "p4",
+              "supportingExcerpt": "aPercentage of “perfect” solutions (correct prediction of 10 streams of 100,000 symbols each). The number of training streams presented until a solution was reached is shown in parentheses. bPercentage of solutions with an average stream length > 1000. The mean length of error-free prediction is given in angle brackets. cPercentage of “bad” solutions with average stream length ≤ 1000. The mean length of error-free prediction is given in angle brackets. Notes: The results are averages over 100 independently trained networks."
+            }
+          ],
+          "limitations": [
+            "The table reports averages over 100 independently trained networks, so individual-run variance is collapsed into summary statistics.",
+            "The excerpt notes that other algorithms like BPTT were not included, so the comparison is incomplete.",
+            "The provided excerpt does not include the full experimental setup beyond the CERG task and the success criteria in the footnote."
+          ]
+        },
+        {
+          "id": "c3",
+          "text": "The benefit of forget gates is conditional on their bias setting: with a large forget-gate bias of 5.0, extended LSTM behaves like standard LSTM and learns as quickly; with a moderate bias of 1.0, it learns about three times more slowly but still solves the task, because it must learn not to forget.",
+          "evidenceRefs": [
+            {
+              "documentId": "forget-2000",
+              "passageId": "p5",
+              "supportingExcerpt": "Using a large bias (5.0) for the forget gates, extended LSTM solved the task as quickly as standard LSTM (recall that a high forget gate bias makes extended LSTM degenerate into standard LSTM). Using a moderate bias like the one used for CERG (1.0), extended LSTM took about three times longer on average, but did solve the problem."
+            },
+            {
+              "documentId": "forget-2000",
+              "passageId": "p5",
+              "supportingExcerpt": "The slower learning speed results from the net’s having to learn to remember everything and not to forget."
+            }
+          ],
+          "limitations": [
+            "This is reported for one task class in the excerpt; it may not generalize to all continual prediction problems.",
+            "The excerpt gives relative training speed qualitatively ('about three times longer on average') rather than a detailed quantitative distribution."
+          ]
+        }
+      ],
+      "method": "The paper proposes an LSTM variant with adaptive forget gates for continual prediction, and evaluates it on the Continuous Embedded Reber Grammar against standard LSTM, external reset, state decay, and a sequential α-decay variant. The reported result is that forget gates improve the fraction of long-lasting and perfect solutions, while fixed decay and standard LSTM perform poorly on the continual task.",
+      "limitations": [
+        "Evidence is restricted to selected passages from the paper, so the reconstruction is partial.",
+        "Some comparisons are summarized in tables without the full experimental protocol details in the provided excerpts.",
+        "Claims about mechanism and performance should be read as supported by the quoted passages, not as a full reconstruction of the paper."
+      ]
+    },
+    "tutor": {
+      "summary": "The selected passages argue that continual prediction can break standard LSTM memory when saturation blocks error flow, and that adaptive forget gates are the proposed remedy because they can reset outdated cell contents either abruptly or gradually. In the CERG table, forget-gate variants outperform standard LSTM and fixed state decay, though performance depends on the forget-gate bias: a high bias makes the model behave like standard LSTM, while a moderate bias slows learning but still allows solutions.",
+      "prerequisites": [
+        {
+          "title": "LSTM cell state, gates, and saturation",
+          "explanation": "To follow claim c1, you need the roles of the cell state, output gate, and the derivative at saturation. In this paper’s setup, saturation matters because it makes the derivative vanish, which blocks incoming errors; that is the mechanism by which the memory cell “cease[s] functioning as a memory.” A concrete prediction is that if the cell output becomes stuck in a saturated regime, learning signals cannot properly adjust the memory content, so continual prediction degrades.",
+          "connectedTo": "c1"
+        },
+        {
+          "title": "Why forgetting can be learned as a reset mechanism",
+          "explanation": "Claim c1 also depends on understanding what the proposed forget gate does: it learns when stored content is “out of date and hence useless,” and can do so either by immediate reset to zero or by gradual fading. Step by step, the gate monitors whether the current memory block still helps prediction; if not, it reduces retention so stale information is removed before it interferes. For example, in a stream where an earlier symbol no longer predicts future symbols, a forget gate can lower the cell state instead of preserving it indefinitely.",
+          "connectedTo": "c1"
+        },
+        {
+          "title": "How to read the CERG table as evidence for continual prediction",
+          "explanation": "To interpret claim c2, you need the table’s success metrics: “perfect” solutions mean correct prediction of 10 streams of 100,000 symbols each, and “good” solutions mean average stream length greater than 1000. The reported pattern is that standard LSTM and fixed state decay get 0% perfect solutions, while forget gates improve outcomes, especially with sequential α decay. A concrete causal prediction is that if a model cannot reset obsolete memory, it will spend most runs in the “bad” regime; if it can selectively forget, more runs will produce long error-free predictions.",
+          "connectedTo": "c2"
+        }
+      ]
+    },
+    "demonstrator": {
+      "summary": "This paper is compatible with the memory-decay illustration: it describes recurrent memory that can saturate or fade, and proposes adaptive forget gates as a reset/decay mechanism. The example below is illustrative, not a reproduction, and is grounded in the provided excerpts only.",
+      "demo": {
+        "templateId": "memory-decay",
+        "title": "Adaptive forget gates for continual prediction",
+        "parameters": {
+          "retention": 0.95,
+          "steps": 60,
+          "initial": 1
+        },
+        "explanation": "The paper supports a memory-decay style illustration because it explicitly describes memory blocks becoming out of date and being reset by adaptive forget gates, including gradual resets as slowly fading cell states. It also reports CERG results showing improved performance for forget-gate variants over standard LSTM and fixed state decay, and notes that forget-gate bias affects how quickly the model learns. This is an illustrative mechanism sketch, not a full experimental reconstruction.",
+        "claimIds": [
+          "c1",
+          "c2",
+          "c3"
+        ],
+        "assumptions": [
+          "The selected passages are sufficient to identify the paper’s core mechanism as adaptive memory reset/decay in recurrent memory.",
+          "The illustration should emphasize the mechanism and reported comparative outcome, not the full architecture or complete experimental protocol.",
+          "Performance numbers are treated as reported summary statistics from the provided table excerpt only."
+        ]
+      }
+    },
+    "overlap": {
+      "summary": "The 2000 paper strongly overlaps with the selected Schmidhuber-profile work in its core LSTM agenda: use multiplicative gating to preserve useful internal state and manage error flow over long time spans. Relative to the 1997 baseline, the main novelty in the target paper is the added forget gate for continual prediction, where memory must be reset or faded without explicit sequence resets. The 2002 timing paper shows a closely related pattern of extending LSTM with additional gate-state interactions for a different failure mode: precise timing rather than stale memory. Empirically, all three emphasize task-specific LSTM variants and comparisons on difficult sequential problems, but they differ in task setting, architectural addition, and evaluation scope.",
+      "connections": [
+        {
+          "mechanism": "LSTM gating and error-flow control are central in both the target paper and the 1997 baseline, but the target paper reframes the problem from bridging long lags to selectively discarding stale memory in continual prediction.",
+          "targetEvidence": [
+            {
+              "documentId": "forget-2000",
+              "passageId": "p1",
+              "supportingExcerpt": "Saturation will make h’s derivative vanish, thus blocking incoming errors, and make the cell output equal the output gate activation; that is, the entire memory cell will degenerate into an ordinary BPTT unit, so that the cell will cease functioning as a memory."
+            },
+            {
+              "documentId": "forget-2000",
+              "passageId": "p2",
+              "supportingExcerpt": "Our solution to the problem above is to use adaptive forget gates, which learn to reset memory blocks once their contents are out of date and hence useless. By resets, we do not mean only immediate resets to zero but also gradual resets corresponding to slowly fading cell states."
+            }
+          ],
+          "profileEvidence": [
+            {
+              "documentId": "lstm-1997",
+              "passageId": "p2",
+              "supportingExcerpt": "LSTM can learn to bridge minimal time lags in excess of 1000 discrete time steps by enforcing constant error flow through “constant error carrousels” within special units. Multiplicative gate units learn to open and close access to the constant error flow."
+            },
+            {
+              "documentId": "lstm-1997",
+              "passageId": "p1",
+              "supportingExcerpt": "The self-recurrent connection (with weight 1.0) indicates feedback with a delay of 1 time step. It builds the basis of the “constant error carrousel” CEC. The gate units open and close access to CEC."
+            },
+            {
+              "documentId": "lstm-1997",
+              "passageId": "p3",
+              "supportingExcerpt": "to ensure non-decaying error backprop through internal states of memory cells"
+            }
+          ],
+          "importantDifferences": [
+            "The 1997 passages emphasize maintaining 'constant error flow' and bridging long time lags; the 2000 paper emphasizes avoiding stale or saturated memory in a continual setting.",
+            "The target paper introduces 'adaptive forget gates'; the 1997 evidence only mentions input/output-style gating around the CEC, not forgetting.",
+            "The target paper explicitly says the earlier experiments avoided the problem because 'cell states were explicitly reset to zero before the start of each new sequence,' which is a different setting from continual prediction."
+          ]
+        },
+        {
+          "mechanism": "The target paper and the 2002 timing paper both extend baseline LSTM with extra gate-related mechanisms to address specific sequential limitations without relying on external resets.",
+          "targetEvidence": [
+            {
+              "documentId": "forget-2000",
+              "passageId": "p2",
+              "supportingExcerpt": "Our solution to the problem above is to use adaptive forget gates, which learn to reset memory blocks once their contents are out of date and hence useless."
+            },
+            {
+              "documentId": "forget-2000",
+              "passageId": "p5",
+              "supportingExcerpt": "Using a large bias (5.0) for the forget gates, extended LSTM solved the task as quickly as standard LSTM (recall that a high forget gate bias makes extended LSTM degenerate into standard LSTM)."
+            }
+          ],
+          "profileEvidence": [
+            {
+              "documentId": "timing-2002",
+              "passageId": "p2",
+              "supportingExcerpt": "add weighted “peephole” connections from the CEC to the gates of the same memory block"
+            },
+            {
+              "documentId": "timing-2002",
+              "passageId": "p2",
+              "supportingExcerpt": "The peephole connections allow all gates to inspect the current cell state even when the output gate is closed."
+            },
+            {
+              "documentId": "timing-2002",
+              "passageId": "p1",
+              "supportingExcerpt": "Without external resets or teacher forcing, our LSTM variant also learns to generate stable streams of precisely timed spikes and other highly nonlinear periodic patterns."
+            }
+          ],
+          "importantDifferences": [
+            "The target paper’s added mechanism is forgetting/resetting outdated memory; the 2002 paper’s added mechanism is letting gates inspect cell state via peepholes.",
+            "The target paper discusses degeneration back to standard LSTM under a high forget-gate bias; the 2002 paper instead says peepholes 'are not mandatory for the task.'",
+            "The target paper addresses continual prediction with obsolete contents; the 2002 paper addresses accurate timing and interval discrimination."
+          ]
+        },
+        {
+          "mechanism": "Both the target paper and the profile works evaluate LSTM variants empirically on hard synthetic sequence tasks, but the comparison sets and success criteria differ.",
+          "targetEvidence": [
+            {
+              "documentId": "forget-2000",
+              "passageId": "p3",
+              "supportingExcerpt": "Table 2: Continuous Embedded Reber Grammar (CERG). Algorithm % Solutionsa % Good Solutionsb % Restc Standard LSTM with external reset 74 (7441) 0 ⟨−⟩ 26 ⟨31⟩ Standard LSTM 0 (-) 1 ⟨1166⟩ 99 ⟨37⟩ LSTM with state decay (0.9) 0 (-) 0 ⟨−⟩ 100 ⟨56⟩ LSTM with forget gates 18 (18,889) 29 ⟨39,171⟩ 53 ⟨145⟩ LSTM with forget gates and sequential α decay 62 (14,087) 6 ⟨68,464⟩ 32 ⟨30⟩"
+            },
+            {
+              "documentId": "forget-2000",
+              "passageId": "p4",
+              "supportingExcerpt": "The results are averages over 100 independently trained networks. Other algorithms like BPTT are not included in the comparison, because they tend to fail even on the easier, noncontinual ERG."
+            }
+          ],
+          "profileEvidence": [
+            {
+              "documentId": "lstm-1997",
+              "passageId": "p2",
+              "supportingExcerpt": "In comparisons with RTRL, BPTT, Recurrent Cascade-Correlation, Elman nets, and Neural Sequence Chunking, LSTM leads to many more successful runs, and learns much faster."
+            },
+            {
+              "documentId": "timing-2002",
+              "passageId": "p3",
+              "supportingExcerpt": "Peephole LSTM outperforms LSTM for some sets, though peephole connections are not mandatory for the task."
+            }
+          ],
+          "importantDifferences": [
+            "The target paper reports CERG results with percentages of 'perfect,' 'good,' and 'bad' solutions over 100 runs; the 1997 excerpt gives only a general comparative claim, not the same tabulated criterion.",
+            "The target paper excludes BPTT from its main table, while the 1997 paper explicitly includes BPTT among compared methods.",
+            "The 2002 evidence compares peephole LSTM to LSTM on timing sets, not on CERG-style continual grammar prediction."
+          ]
+        }
+      ]
+    },
+    "proposer": {
+      "summary": "Findings from the supplied passages: standard LSTM can fail in continual prediction when saturated cells block error flow; adaptive forget gates were introduced to reset outdated memory; CERG results favor adaptive forgetting over fixed decay; and forget-gate bias changes learning speed. Deductions: a high initial forget bias may ease optimization because it approximates standard LSTM, and gate access to cell state may improve reset decisions. Proposals, scoped to the supplied recurrent-memory/timing evidence because no explicit settings.interests were provided: (1) an incremental forget-bias annealing scheme, (2) a cross-paper peephole-conditioned forget gate bridging continual prediction and timing, and (3) a speculative two-timescale learned forgetting mechanism. These are hypotheses, not claims of established novelty or results.",
+      "proposals": [
+        {
+          "id": "inc-bias-anneal",
+          "kind": "incremental",
+          "title": "Anneal forget-gate bias from near-standard LSTM toward adaptive forgetting",
+          "hypothesis": "If forget-gate LSTM starts with a high forget bias that initially behaves like standard LSTM, then anneals to a moderate bias, it may keep the faster early optimization of standard LSTM while recovering the continual-task benefit of learned forgetting.",
+          "change": "Replace a fixed forget-gate bias with a training-time schedule from 5.0 toward 1.0.",
+          "formulation": "Use the usual forget-gated update but make the bias schedule explicit: f_t = σ(W_f x_t + U_f h_{t-1} + b_f(τ)); c_t = f_t ⊙ c_{t-1} + i_t ⊙ g_t; b_f(τ) = 5.0 + (1.0 - 5.0)·min(1, τ/T), where τ is training progress and T is the anneal horizon. Justification from the supplied evidence: high bias 'degenerate[s] into standard LSTM' and learns as quickly, while moderate bias is slower but still solves the task.",
+          "assumptions": [
+            "The bias values 5.0 and 1.0 remain meaningful in the continual setting being tested.",
+            "A gradual schedule can be applied without changing the rest of the architecture.",
+            "Training progress τ can be defined consistently across runs, e.g. by number of training streams."
+          ],
+          "baseline": "Forget-gate LSTM with fixed bias 1.0; forget-gate LSTM with fixed bias 5.0.",
+          "ablation": "Linear anneal vs step anneal; anneal to 1.0 vs stop at an intermediate bias; reverse schedule as a negative control.",
+          "metric": "CERG '% Solutions', '% Good Solutions', '% Rest', and streams-until-solution, using the Table 2 success criterion.",
+          "falsificationCriterion": "Reject the hypothesis if annealing does not reduce mean streams-until-solution relative to fixed bias 1.0 without lowering the perfect-solution rate, or if it performs no better than fixed bias 5.0 on continual CERG across repeated runs.",
+          "minimalExperiment": "Repeat the CERG comparison over 100 independently trained networks, matching the paper's sample size, with four conditions: fixed 1.0, fixed 5.0, linear 5.0→1.0 anneal, and stepwise 5.0→1.0 anneal.",
+          "resources": [
+            "CERG benchmark implementation",
+            "Forget-gate LSTM with schedulable bias",
+            "Compute for 4 conditions × 100 independent runs",
+            "Logging of streams-until-solution and error-free prediction length"
+          ],
+          "evidenceRefs": [
+            {
+              "documentId": "forget-2000",
+              "passageId": "p5",
+              "supportingExcerpt": "Using a large bias (5.0) for the forget gates, extended LSTM solved the task as quickly as standard LSTM"
+            },
+            {
+              "documentId": "forget-2000",
+              "passageId": "p5",
+              "supportingExcerpt": "Using a moderate bias like the one used for CERG (1.0), extended LSTM took about three times longer on average, but did solve the problem."
+            },
+            {
+              "documentId": "forget-2000",
+              "passageId": "p2",
+              "supportingExcerpt": "adaptive forget gates, which learn to reset memory blocks once their contents are out of date and hence useless"
+            },
+            {
+              "documentId": "forget-2000",
+              "passageId": "p4",
+              "supportingExcerpt": "The results are averages over 100 independently trained networks."
+            }
+          ],
+          "noveltyQuestions": [
+            "Has bias annealing for forget gates in continual LSTM already been tested explicitly, rather than fixed-bias initialization only?",
+            "Would any observed gain come from curriculum/optimization effects rather than better memory management?"
+          ],
+          "compatibleTemplate": null
+        },
+        {
+          "id": "crossfield-peephole-forget",
+          "kind": "cross-field",
+          "title": "Peephole-conditioned forget gates for state-aware memory resets",
+          "hypothesis": "If the forget gate can inspect the current cell state directly, then it may make better reset/fade decisions in continual prediction, especially when stale information persists while the output gate is closed.",
+          "change": "Add a peephole term from the cell state to the forget gate; optionally compare forget-only peepholes against peepholes on all gates.",
+          "formulation": "Modify the forget gate to f_t = σ(W_f x_t + U_f h_{t-1} + V_f c_{t-1} + b_f), with c_t = f_t ⊙ c_{t-1} + i_t ⊙ g_t. This combines the 2000 paper's adaptive forgetting with the 2002 paper's idea that gates can inspect cell state directly.",
+          "assumptions": [
+            "The benefit of peepholes for timing tasks can transfer to stale-memory decisions in continual prediction.",
+            "Adding V_f c_{t-1} does not destroy the continual-learning comparison by only increasing parameter count.",
+            "Matched-parameter controls can separate architectural effect from capacity effect."
+          ],
+          "baseline": "Forget-gate LSTM without peepholes.",
+          "ablation": "Forget-gate peephole only vs peepholes on all gates; matched extra parameters without state-to-gate connection; fixed bias vs annealed bias.",
+          "metric": "On CERG: '% Solutions', '% Good Solutions', '% Rest', and mean error-free prediction length. On a timing task: success rate at distinguishing intervals such as 50 vs 49 steps apart.",
+          "falsificationCriterion": "Reject if peephole-conditioned forgetting fails to improve either CERG continual-prediction outcomes or timing discrimination over the non-peephole forget-gate baseline at matched parameter count, or if gains appear only from added capacity controls.",
+          "minimalExperiment": "Train three variants: baseline forget-gate LSTM, forget-only-peephole LSTM, and all-gates-peephole LSTM. Evaluate on CERG with 100 runs and on a synthetic interval-discrimination task modeled on the supplied 49-vs-50-step timing example.",
+          "resources": [
+            "CERG benchmark",
+            "Synthetic timing benchmark with controlled intervals",
+            "LSTM code with optional state-to-gate peepholes",
+            "Compute for repeated multi-condition runs"
+          ],
+          "evidenceRefs": [
+            {
+              "documentId": "forget-2000",
+              "passageId": "p2",
+              "supportingExcerpt": "adaptive forget gates, which learn to reset memory blocks once their contents are out of date and hence useless"
+            },
+            {
+              "documentId": "timing-2002",
+              "passageId": "p2",
+              "supportingExcerpt": "The peephole connections allow all gates to inspect the current cell state even when the output gate is closed."
+            },
+            {
+              "documentId": "timing-2002",
+              "passageId": "p1",
+              "supportingExcerpt": "can learn the fine distinction between sequences of spikes spaced either 50 or 49 time steps apart"
+            },
+            {
+              "documentId": "timing-2002",
+              "passageId": "p2",
+              "supportingExcerpt": "add weighted “peephole” connections from the CEC to the gates of the same memory block"
+            }
+          ],
+          "noveltyQuestions": [
+            "Have peephole connections specifically to forget gates in continual-prediction LSTM already been benchmarked on CERG-like tasks?",
+            "If improvements occur, are they unique to stale-memory reset decisions or just a general benefit of extra gate-state coupling?"
+          ],
+          "compatibleTemplate": null
+        },
+        {
+          "id": "spec-two-timescale-forgetting",
+          "kind": "speculative",
+          "title": "Two-timescale learned forgetting to separate abrupt reset from slow fade",
+          "hypothesis": "A single forget gate may be asked to represent both abrupt context switches and slow decay; splitting forgetting into fast-reset and slow-fade components may better capture the paper's own distinction between immediate resets and gradual fading while avoiding a fixed decay constant.",
+          "change": "Replace one forget factor with a learned mixture of two retention factors, one biased toward rapid erase and one toward long retention.",
+          "formulation": "Use c_t = [α_t ⊙ f_slow,t + (1-α_t) ⊙ f_fast,t] ⊙ c_{t-1} + i_t ⊙ g_t, where f_fast,t = σ(W_fast x_t + U_fast h_{t-1} + b_fast), f_slow,t = σ(W_slow x_t + U_slow h_{t-1} + b_slow), and α_t = σ(W_α x_t + U_α h_{t-1} + b_α). Bias f_fast toward small retention and f_slow toward large retention. The proposal is motivated by the source text's explicit contrast between immediate and gradual resets and its criticism of fixed decay constants.",
+          "assumptions": [
+            "The continual task contains both abrupt and gradual relevance changes.",
+            "The added mechanism can be compared fairly to a parameter-matched control.",
+            "Observed benefits would not be explained solely by extra capacity."
+          ],
+          "baseline": "Single forget-gate LSTM; fixed state decay (0.9); forget gates with sequential α decay as listed in Table 2.",
+          "ablation": "Fast-only path; slow-only path; fixed α_t; parameter-matched extra-cell control without two-timescale mixing.",
+          "metric": "CERG '% Solutions', '% Good Solutions', '% Rest', mean error-free prediction length, and cell-state magnitude/saturation diagnostics during long streams.",
+          "falsificationCriterion": "Reject if the two-timescale model does not improve continual CERG outcomes over single forget gates or sequential α decay, or if it increases bad solutions or state saturation without compensating gains.",
+          "minimalExperiment": "On CERG, repeat 100 independent runs for baseline single-forget, fixed state decay, sequential α decay, and the proposed two-timescale model; log retention values and cell-state magnitudes over long unreset streams.",
+          "resources": [
+            "CERG benchmark",
+            "Instrumentation for gate values and cell-state magnitude over time",
+            "Compute for 4 conditions × 100 runs",
+            "Parameter-matched control implementation"
+          ],
+          "evidenceRefs": [
+            {
+              "documentId": "forget-2000",
+              "passageId": "p2",
+              "supportingExcerpt": "By resets, we do not mean only immediate resets to zero but also gradual resets corresponding to slowly fading cell states."
+            },
+            {
+              "documentId": "forget-2000",
+              "passageId": "p6",
+              "supportingExcerpt": "there is no principled way of designing appropriate decay constants"
+            },
+            {
+              "documentId": "forget-2000",
+              "passageId": "p6",
+              "supportingExcerpt": "state decay does not significantly improve experimental performance"
+            },
+            {
+              "documentId": "forget-2000",
+              "passageId": "p1",
+              "supportingExcerpt": "Saturation will make h’s derivative vanish, thus blocking incoming errors"
+            }
+          ],
+          "noveltyQuestions": [
+            "Has a two-timescale forget mechanism already been explored in later LSTM variants under different names?",
+            "Would any gain reflect better inductive bias for mixed reset/fade regimes, or merely more parameters and more gates?"
+          ],
+          "compatibleTemplate": "memory-decay"
+        }
+      ]
+    },
+    "collaborator": {
+      "summary": "Missing capabilities for proposal inc-bias-anneal are mainly experimental: CERG-style continual-prediction benchmarking at the paper’s reported scale, training-schedule design for moving forget-gate bias from 5.0 toward 1.0, repeated-run evaluation against the paper’s success criteria, and diagnostics that test whether any gain comes from faster optimization or better stale-memory handling.",
+      "collaborations": [
+        {
+          "neededCapability": "Reproduce and instrument the CERG continual-prediction benchmark with the paper’s reported evaluation setup.",
+          "candidateOrExpertiseCategory": "Continual-sequence benchmarking and recurrent experiment implementation",
+          "supportingPublications": [
+            "forget-2000"
+          ],
+          "complementaryContributions": [
+            "Implement the CERG task and the paper’s reported outcome measures: '% Solutions', '% Good Solutions', '% Rest', and streams-until-solution.",
+            "Match the reported repeated-run setting of '100 independently trained networks' for fixed-bias and annealed-bias conditions.",
+            "Audit comparability between fixed 1.0, fixed 5.0, and annealed forget-gate bias settings."
+          ],
+          "uncertainty": "Low to moderate. The need is directly supported by the supplied CERG table and sample-size passage, but the supplied excerpts are not the full protocol."
+        },
+        {
+          "neededCapability": "Design and tune a training-time forget-gate bias schedule that starts near standard LSTM behavior and moves toward adaptive forgetting.",
+          "candidateOrExpertiseCategory": "Recurrent-network optimization and schedule design",
+          "supportingPublications": [
+            "forget-2000",
+            "lstm-1997"
+          ],
+          "complementaryContributions": [
+            "Translate the fixed-bias observations into explicit linear or stepwise annealing schedules.",
+            "Check whether early training preserves the fast regime where high forget bias 'degenerate[s] into standard LSTM' while later training recovers the continual-task benefit of adaptive forgetting.",
+            "Coordinate schedule choices with the underlying LSTM training dynamics described for gated recurrent memory."
+          ],
+          "uncertainty": "Moderate. The supplied evidence supports fixed-bias behavior at 5.0 and 1.0, but annealing itself is only proposed upstream and is not reported in the supplied publications."
+        },
+        {
+          "neededCapability": "Evaluate whether annealing improves efficiency without sacrificing continual-task success.",
+          "candidateOrExpertiseCategory": "Sequential-model evaluation and repeated-run statistical analysis",
+          "supportingPublications": [
+            "forget-2000"
+          ],
+          "complementaryContributions": [
+            "Aggregate and compare '% Solutions', '% Good Solutions', and '% Rest' across repeated runs.",
+            "Compare streams-until-solution between annealed and fixed-bias baselines.",
+            "Separate improvements in training speed from changes in perfect-solution rate using the paper’s own success criterion."
+          ],
+          "uncertainty": "Low to moderate. The table defines the core metrics, but the supplied passages do not provide full run distributions or variance estimates."
+        }
+      ]
+    },
+    "skeptic": {
+      "summary": "The paper supports that forget-gate bias changes behavior and learning speed, but it does not provide evidence for a training-time annealing schedule. The proposal is a plausible extrapolation, not a result established by the supplied passages.",
+      "critique": {
+        "supported": [
+          "\"Using a large bias (5.0) for the forget gates, extended LSTM solved the task as quickly as standard LSTM\"",
+          "\"a high forget gate bias makes extended LSTM degenerate into standard LSTM\"",
+          "\"Using a moderate bias like the one used for CERG (1.0), extended LSTM took about three times longer on average, but did solve the problem.\"",
+          "\"adaptive forget gates, which learn to reset memory blocks once their contents are out of date and hence useless\"",
+          "\"The results are averages over 100 independently trained networks.\""
+        ],
+        "assumptions": [
+          "A schedule from 5.0 to 1.0 will combine the early-speed benefit of high bias with the continual-task benefit of lower bias.",
+          "Changing the bias during training will preserve the relevant behavior implied by the fixed-bias observations.",
+          "The fixed-bias comparison in the supplied passage is sufficient to motivate the specific linear schedule \"5.0 + (1.0 - 5.0)·min(1, τ/T)\"."
+        ],
+        "unsupported": [
+          "The supplied evidence does not show that annealing \"from 5.0 toward 1.0\" improves CERG outcomes over fixed bias baselines.",
+          "The supplied evidence does not show that annealing will \"keep the faster early optimization of standard LSTM while recovering the continual-task benefit of learned forgetting.\"",
+          "The supplied evidence does not establish any best anneal horizon, linear schedule, or step schedule."
+        ],
+        "suggestedChanges": [
+          "Recast the main claim as a testable hypothesis rather than an evidence-backed improvement.",
+          "Anchor the motivation narrowly to the supported fixed-bias tradeoff: high bias is faster; moderate bias still solves the task but is slower.",
+          "State explicitly that the annealing schedule itself is not supported by the supplied paper passages.",
+          "Keep the proposed evaluation against the supported fixed-bias baselines \"5.0\" and \"1.0\" with \"100 independently trained networks.\""
+        ],
+        "verdict": "unresolved"
+      }
+    }
+  }
+}

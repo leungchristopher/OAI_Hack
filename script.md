@@ -1,0 +1,8 @@
+In an age of passivity and consumption, the learning experience should be Socratic and interactive. There is no reason why it shouldn't be also beautiful.
+
+Marginalia makes this process interactive, by embedding papers of interest in a navigable landscape. [Move towards the AlphaGo house, demonstrate the chess moves alongside the policy, value nets, and the MCTS/UCB algorithm]. You can interact with a neural network [clicking on one part reveals the details of the architecture], whilst observing its outputs [show the famous move 37 in Game 2]. [Navigate to the Hannon house, showing the downstream work + critique + demo of the actual
+mechanism]. A paper can be animated, as you explore relevant critiques, follow-ups, applications, and potential collaborations. [Navigate to the robotics house, show off the smolVLA demo and the explainer]. With built-in MuJoCo, you can learn about the frontiers of robotics, and work through the equations one-by-one. 
+
+You should also be able to ask questions [Pull up the chatbox, demonstrate a question asking about how the look-ahead in Action Chunking with Transformers affects performance/stability, and a second question asking about alternatives to UCB and MCTS - the model tries to elicit from the user the idea of beam search, or alpha-beta pruning] at any time.
+
+The world is increasingly interdisciplinary. Being able to interact with the work that a company, or a lab has done in a completely different field should be utterly accessible. An interactive environment that highlights your work, and potential for collaboration, may be a way to cut through the noise, and make true breakthroughs.

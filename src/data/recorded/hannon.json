@@ -1,0 +1,512 @@
+{
+  "generatedAt": "2026-10-06T19:02:41.045Z",
+  "models": {
+    "fast": "gpt-5.4-mini",
+    "reasoning": "gpt-5.4"
+  },
+  "usage": {
+    "requests": 7,
+    "inputTokens": 59077,
+    "outputTokens": 12688,
+    "unmeasuredRequests": 0
+  },
+  "artifacts": {
+    "reader": {
+      "summary": "The selected passages support a two-step RNAi model in which Dicer generates ~22-nt guide RNAs from dsRNA, and these guide RNAs are then loaded into RISC to direct target mRNA cleavage. The paper further supports this with biochemical fractionation and depletion experiments showing Dicer is distinct from, and necessary for, the initiation step in vivo, while leaving open the possibility of additional Dicer-associated or alternative guide-producing activities.",
+      "claims": [
+        {
+          "id": "c1",
+          "text": "Dicer is the dsRNA-processing activity that initiates RNAi by producing ~22-nucleotide guide RNAs from double-stranded RNA substrates.",
+          "evidenceRefs": [
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p1",
+              "supportingExcerpt": "Here we identify an enzyme, Dicer, which can produce putative guide RNAs."
+            },
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p3",
+              "supportingExcerpt": "We tested representatives of all three classes for the ability to produce discrete RNAs of ~22 nucleotides from dsRNA substrates."
+            },
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p5",
+              "supportingExcerpt": "Initiation of PTGS would occur on processing of a dsRNA by Dicer into ~22-nucleotide guide sequences"
+            }
+          ],
+          "limitations": [
+            "The paper says these are \"putative guide RNAs\" and notes it \"cannot formally exclude the possibility that another Dicer-associated nuclease may participate in this process.\""
+          ]
+        },
+        {
+          "id": "c2",
+          "text": "RNAi can be divided into at least two separable biochemical steps: Dicer-dependent initiation and RISC-dependent effector cleavage of target mRNAs.",
+          "evidenceRefs": [
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p2",
+              "supportingExcerpt": "RISC activity could be largely cleared from extracts by high-speed centrifugation (100,000g for 60 min), whereas the activity that produces 22-nucleotide sequences remained in the supernatant"
+            },
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p5",
+              "supportingExcerpt": "Our results indicate that the process of RNAi can be divided into at least two distinct steps."
+            },
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p5",
+              "supportingExcerpt": "These guide RNAs would be incorporated into a distinct nuclease complex (RISC) that targets single-stranded mRNAs for degradation."
+            }
+          ],
+          "limitations": [
+            "The fractionation shows separability, but the authors state that \"it seems probable that these enzymes interact at some point during the silencing process\" and that they \"share common subunits\" remains possible."
+          ]
+        },
+        {
+          "id": "c3",
+          "text": "Reducing Dicer activity compromises RNAi in cells, supporting a functional role for Dicer in vivo.",
+          "evidenceRefs": [
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p4",
+              "supportingExcerpt": "Transfection with Dicer dsRNA reduces activity in lysates 7.4-fold."
+            },
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p4",
+              "supportingExcerpt": "Dicer dsRNA reduces the activity of Dicer-1 6.2-fold."
+            },
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p6",
+              "supportingExcerpt": "Depletion of Dicer substantially compromised the ability of cells to silence an exogenous, green fluorescent protein (GFP) transgene by RNAi"
+            }
+          ],
+          "limitations": [
+            "The inhibition was not complete; the authors attribute this either to \"an incomplete suppression of Dicer\" or to \"guide RNAs may be produced by more than one mechanism.\""
+          ]
+        }
+      ],
+      "method": "Biochemical dissection of RNAi in Drosophila S2 cells: the authors compared RNase III-family nucleases for dsRNA-processing activity, separated processing activity from RISC by high-speed centrifugation, and used Dicer dsRNA depletion plus GFP-silencing assays to test whether Dicer contributes to RNAi in vivo. The observed result was that Dicer-generated ~22-nt RNAs and Dicer depletion reduced silencing, consistent with Dicer acting upstream of RISC.",
+      "limitations": [
+        "Selected passages are partial and do not include all experimental details, controls, or full figure data.",
+        "The extracted text reports an inference of a two-step model; it does not fully rule out additional nucleases or shared subunits between initiation and effector complexes.",
+        "Because only selected passages were provided, quantitative results are limited to the values explicitly stated in the excerpts."
+      ]
+    },
+    "tutor": {
+      "summary": "These passages support a two-step RNAi model: Dicer processes double-stranded RNA into ~22-nucleotide guide RNAs, and those guides are then used by RISC to target single-stranded mRNAs for degradation. The selected evidence also shows that Dicer activity and Dicer depletion affect silencing in Drosophila cells, supporting a functional role for Dicer in the initiation step, while leaving open the possibility of additional Dicer-associated activities.",
+      "prerequisites": [
+        {
+          "title": "Distinguish the initiation step from the effector step in RNAi",
+          "explanation": "For this paper, the key variables are the double-stranded RNA input, the ~22-nucleotide guide RNAs, and the RISC effector complex. The mechanism is: Dicer processes dsRNA into short guide RNAs, then RISC uses those guides to recognize and degrade matching single-stranded mRNAs. A concrete prediction is that if the guide-producing step is impaired, target mRNA silencing should fall even if RISC itself is present. This directly supports claim c2, which says RNAi can be divided into at least two separable biochemical steps.",
+          "connectedTo": "c2"
+        },
+        {
+          "title": "Understand what counts as Dicer-dependent guide RNA production",
+          "explanation": "Here, Dicer is the dsRNA-processing activity that generates the short RNAs that act as guides. The paper describes these as \"putative guide RNAs\" and notes that another Dicer-associated nuclease could also participate, so the claim is about the observed processing activity rather than an absolute exclusion of all alternatives. Step by step, dsRNA is converted into ~22-nt sequences, and those sequences are then available to direct silencing. A worked example is that exogenous dsRNA introduced into S2 cells is reported to appear in RISC as 22-nucleotide sequences. This is the basis of claim c1.",
+          "connectedTo": "c1"
+        },
+        {
+          "title": "Interpret depletion data as functional evidence in vivo",
+          "explanation": "For a graduate reader, the important variables are Dicer abundance, Dicer activity in lysates, and the extent of GFP transgene silencing. The causal logic is that reducing Dicer should reduce guide-RNA production and thereby weaken RNAi. The passage reports that Dicer dsRNA reduced lysate activity 7.4-fold and Dicer-1 activity 6.2-fold, and that Dicer depletion substantially compromised GFP silencing. A concrete prediction is that partial depletion will produce incomplete loss of silencing, which is exactly the kind of caveat the authors mention. This directly supports claim c3.",
+          "connectedTo": "c3"
+        }
+      ]
+    },
+    "demonstrator": {
+      "summary": "This paper supports the RNA interference / RNA silencing illustration: Dicer processes dsRNA into ~22-nt guide RNAs, and those guides then act through RISC. The selected passages also support a functional depletion result in vivo, with the caveat that the authors leave room for additional Dicer-associated activity or alternative guide-producing mechanisms.",
+      "demo": {
+        "templateId": "rna-silencing",
+        "title": "Dicer initiates RNA interference by generating ~22-nt guide RNAs",
+        "parameters": {
+          "silencing": 0.3,
+          "production": 0.2,
+          "decay": 0.2
+        },
+        "explanation": "The passage set supports an RNA-silencing mechanism: Dicer is identified as an enzyme that can produce putative guide RNAs from dsRNA, RNAi is described as having distinct initiation and effector steps, and Dicer depletion reduces silencing in cells. This matches the implemented RNA interference illustration.",
+        "claimIds": [
+          "c1",
+          "c2",
+          "c3"
+        ],
+        "assumptions": [
+          "The selected passages are sufficient to illustrate the core mechanism, even though they are partial excerpts.",
+          "The illustration is taken as schematic and not a literal reproduction of the paper’s figures or full experimental setup.",
+          "The authors’ stated caveats are retained: the guide RNAs are described as putative, and an additional Dicer-associated nuclease or alternative mechanism is not excluded."
+        ]
+      }
+    },
+    "overlap": {
+      "summary": "There is strong overlap around biochemical dissection of RNA interference, especially the relationship between small guide RNAs and the effector complex RISC. Relative to the profile’s 2000 RISC paper and 2004 Ago2 paper, the 2001 Dicer paper fills in the upstream initiation step by arguing that Dicer generates the ~22-nt guide RNAs that are then used by RISC, while the later Ago2 work sharpens the downstream catalytic identity of the effector complex.",
+      "connections": [
+        {
+          "mechanism": "Small-RNA–guided RISC cleavage as the core RNAi framework, with the target paper adding an upstream Dicer-processing step",
+          "targetEvidence": [
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p5",
+              "supportingExcerpt": "Our results indicate that the process of RNAi can be divided into at least two distinct steps."
+            },
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p5",
+              "supportingExcerpt": "Initiation of PTGS would occur on processing of a dsRNA by Dicer into ~22-nucleotide guide sequences"
+            },
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p5",
+              "supportingExcerpt": "These guide RNAs would be incorporated into a distinct nuclease complex (RISC) that targets single-stranded mRNAs for degradation."
+            }
+          ],
+          "profileEvidence": [
+            {
+              "documentId": "risc-2000",
+              "passageId": "p2",
+              "supportingExcerpt": "These results indicate that RNAi ablates target mRNAs through the generation of a sequence-specific nuclease activity. We have termed this enzyme RISC (RNA-induced silencing complex)."
+            },
+            {
+              "documentId": "ago2-2004",
+              "passageId": "p1",
+              "supportingExcerpt": "Gene silencing through RNA interference (RNAi) is carried out by RISC, the RNA-induced silencing complex."
+            },
+            {
+              "documentId": "ago2-2004",
+              "passageId": "p1",
+              "supportingExcerpt": "Thus, our evidence supports a model in which Argonaute contributes “Slicer” activity to RISC, providing the catalytic engine for RNAi."
+            }
+          ],
+          "importantDifferences": [
+            "The 2001 target paper is centered on initiation: it proposes that Dicer processes dsRNA into guide sequences before RISC acts.",
+            "The 2000 profile paper establishes RISC as a sequence-specific nuclease but does not identify Dicer as the generator of the small RNAs in the supplied passages.",
+            "The 2004 profile paper moves downstream to identify Argonaute2 as the catalytic engine of RISC, rather than the upstream source of guide RNAs."
+          ]
+        },
+        {
+          "mechanism": "Small RNAs are treated as the specificity-bearing intermediates that connect dsRNA triggers to target mRNA destruction",
+          "targetEvidence": [
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p1",
+              "supportingExcerpt": "In both plants and animals, RNAi is characterized by the presence of RNAs of about 22 nucleotides in length that are homologous to the gene that is being suppressed6–8."
+            },
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p1",
+              "supportingExcerpt": "These 22-nucleotide sequences serve as guide sequences that instruct a multicomponent nuclease, RISC, to destroy specific messenger RNAs6."
+            },
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p5",
+              "supportingExcerpt": "we have shown that 32P-labelled, exogenous dsRNAs that have been introduced into S2 cells by transfection are incorporated into the RISC enzyme as 22- nuclotide sequences"
+            }
+          ],
+          "profileEvidence": [
+            {
+              "documentId": "risc-2000",
+              "passageId": "p1",
+              "supportingExcerpt": "After partial purification, the sequence-specific nuclease co-fractionates with a discrete, ~25-nucleotide RNA species which may confer specificity to the enzyme through homology to the substrate mRNAs."
+            },
+            {
+              "documentId": "risc-2000",
+              "passageId": "p3",
+              "supportingExcerpt": "Active fractions also contained an RNA species of 25 nucleotides that is homologous to the cyclin E target"
+            },
+            {
+              "documentId": "ago2-2004",
+              "passageId": "p1",
+              "supportingExcerpt": "RISC contains two signature components, small interfering RNAs (siRNAs) and Argonaute family proteins."
+            }
+          ],
+          "importantDifferences": [
+            "The target paper explicitly links these small RNAs to Dicer processing from dsRNA and to incorporation into RISC.",
+            "In the 2000 profile paper, the small RNA is described more cautiously as a co-fractionating '~25-nucleotide RNA species' that 'may confer specificity'.",
+            "The supplied 2004 profile passages assume siRNAs as RISC components and focus on the protein catalyst, not on how the small RNAs are generated."
+          ]
+        },
+        {
+          "mechanism": "Biochemical separation of pathway components to distinguish initiation from effector function",
+          "targetEvidence": [
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p2",
+              "supportingExcerpt": "We first investigated whether the RISC enzyme, and the enzyme that initiates RNAi through processing of dsRNA into 22-nucleotide sequences, are distinct activities."
+            },
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p2",
+              "supportingExcerpt": "RISC activity could be largely cleared from extracts by high-speed centrifugation (100,000g for 60 min), whereas the activity that produces 22-nucleotide sequences remained in the supernatant"
+            },
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p2",
+              "supportingExcerpt": "This simple fractionation indicates that RISC and the 22-nucleotide sequence-generating activity may be separable."
+            }
+          ],
+          "profileEvidence": [
+            {
+              "documentId": "risc-2000",
+              "passageId": "p1",
+              "supportingExcerpt": "We have taken a biochemical approach towards elucidating the mechanisms underlying this genetic phenomenon."
+            },
+            {
+              "documentId": "risc-2000",
+              "passageId": "p2",
+              "supportingExcerpt": "We therefore sought to develop a cell-free assay that reflected, at least in part, RNAi."
+            },
+            {
+              "documentId": "risc-2000",
+              "passageId": "p3",
+              "supportingExcerpt": "Chromatography of soluble nuclease over an anion-exchange column resulted in a discrete peak of activity"
+            }
+          ],
+          "importantDifferences": [
+            "Both use biochemical fractionation logic, but the target paper uses it specifically to argue that guide-RNA production and RISC are separable activities.",
+            "The 2000 profile paper uses purification and cell-free assays to isolate RISC activity itself rather than to split the pathway into upstream and downstream modules.",
+            "The target paper also explicitly allows that the activities may still interact or 'share common subunits', so the separation is functional rather than absolute."
+          ]
+        }
+      ]
+    },
+    "proposer": {
+      "summary": "Findings from the selected passages: Dicer is identified as a dsRNA-processing enzyme that can generate \"~22-nucleotide guide sequences\"; RNAi is framed as at least two separable steps, with upstream guide generation and downstream RISC-mediated target degradation; and Dicer depletion reduces but does not eliminate silencing. Deduction from the same corpus plus the supplied profile passages: the open residual-silencing question is whether partial Dicer loss leaves enough guide production to explain the phenotype, or whether a parallel guide-producing path exists; and downstream cleavage can be modeled as a distinct catalytic stage because later profile work assigns RISC cleavage to Argonaute. Proposals: an incremental test of the residual-silencing ambiguity, a cross-field cascade/queue model for stage-specific bottlenecks, and a speculative Dicer-to-RISC channeling model. Concrete caution: the paper itself retains unresolved objections, including possible \"Dicer-associated\" nuclease activity, possible shared subunits, and incomplete depletion. No novelty claim is possible from this small corpus.",
+      "proposals": [
+        {
+          "id": "p-incremental-residual-guide-source",
+          "kind": "incremental",
+          "title": "Disentangle incomplete Dicer suppression from a parallel guide-producing route",
+          "hypothesis": "The residual RNAi seen after Dicer depletion is explained either by residual Dicer-dependent guide production alone or by an additional guide-producing mechanism; these alternatives can be separated by jointly modeling residual Dicer activity, ~22-nt guide abundance, and silencing output.",
+          "change": "Move from a depletion-only interpretation to a tri-variate analysis that measures residual Dicer activity, guide production, and silencing in matched conditions, instead of inferring mechanism from GFP silencing alone.",
+          "formulation": "Let D be residual Dicer activity, G be ~22-nt guide abundance, and S be silencing strength. Compare M0 (single-route): G = γD and S = αG, versus M1 (parallel-source): G = γD + δ and S = αG. Under incomplete suppression alone, δ ≈ 0; support for a parallel source requires δ > 0 while improving prediction of S.",
+          "assumptions": [
+            "The reported lysate activity reduction and GFP-silencing compromise can be measured on a common scale across matched perturbations.",
+            "The ~22-nt species remain a useful proxy for guide availability, even though the paper calls them putative guides.",
+            "Reporter silencing is dominated by the RNAi pathway under study rather than unrelated toxicity or transfection effects."
+          ],
+          "baseline": "A single-route model in which all residual silencing is proportional to residual Dicer-dependent guide production.",
+          "ablation": "Fix δ = 0 and predict silencing from Dicer activity alone, omitting direct guide quantification.",
+          "metric": "Model fit to silencing across conditions, plus confidence interval on δ and variance explained by adding guide abundance.",
+          "falsificationCriterion": "If residual guide abundance and residual silencing are fully explained by residual Dicer activity, with δ not distinguishable from zero and no predictive gain over the baseline, the parallel-source hypothesis is not supported.",
+          "minimalExperiment": "In the same S2-cell/GFP reporter context as the paper, compare control perturbation and Dicer-directed perturbations with matched readouts of (i) Dicer processing activity in lysates, (ii) abundance of the ~22-nt RNA class, and (iii) GFP-silencing output. Include a nonsilencing reporter control and monitor confounders such as generalized loss of cell fitness, unequal reporter delivery, and off-target effects of Dicer perturbation.",
+          "resources": [
+            "S2-cell reporter system with GFP and matched control reporter",
+            "Lysate-based Dicer activity readout already used in the paper’s logic",
+            "Small-RNA size-class quantification for the ~22-nt species",
+            "3-5 matched perturbation conditions with replicate measurements",
+            "Simple regression/model-comparison analysis"
+          ],
+          "evidenceRefs": [
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p6",
+              "supportingExcerpt": "The lack of complete inhibition of silencing may result from an incomplete suppression of Dicer or may indicate that in vivo guide RNAs may be produced by more than one mechanism."
+            },
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p4",
+              "supportingExcerpt": "Transfection with Dicer dsRNA reduces activity in lysates 7.4-fold."
+            },
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p5",
+              "supportingExcerpt": "Initiation of PTGS would occur on processing of a dsRNA by Dicer into ~22-nucleotide guide sequences"
+            },
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p6",
+              "supportingExcerpt": "Depletion of Dicer substantially compromised the ability of cells to silence an exogenous, green fluorescent protein (GFP) transgene by RNAi"
+            }
+          ],
+          "noveltyQuestions": [
+            "Has prior work already quantified residual ~22-nt guide abundance and silencing across graded Dicer suppression in the same assay context?",
+            "Have alternative guide-producing activities in this early Drosophila system already been excluded by stronger depletion or orthogonal perturbations?",
+            "Has the incomplete-suppression versus parallel-route ambiguity already been resolved in later literature not included here?"
+          ],
+          "compatibleTemplate": "rna-silencing"
+        },
+        {
+          "id": "p-crossfield-cascade-bottleneck-model",
+          "kind": "cross-field",
+          "title": "Apply a cascade/queue model to identify whether RNAi throughput is limited by guide production, loading, or cleavage",
+          "hypothesis": "A two-stage dynamical model with explicit guide production and effector cleavage will explain RNAi behavior better than a one-step decay model and can reveal whether throughput is limited upstream by Dicer or downstream by catalytic RISC.",
+          "change": "Reframe the pathway as a staged processing system from dsRNA input to guide pool to active RISC to target decay, instead of treating silencing as a single lumped repression step.",
+          "formulation": "Use a staged model: dG/dt = kD·U - λG·G - kL·A·G; dL/dt = kL·A·G - λL·L; dT/dt = -kC·L·T, where U is dsRNA input, G is guide pool, A is catalytic effector availability, L is loaded RISC, and T is target mRNA. Baseline one-step model: dT/dt = -k·U·T. This is justified by the corpus splitting RNAi into initiation and effector stages and later assigning catalytic cleavage to Argonaute.",
+          "assumptions": [
+            "The separable biochemical stages can be approximated as serial processes for modeling purposes, despite possible interaction or shared subunits.",
+            "A later Argonaute-centric catalytic view is relevant as a downstream lens on the earlier Dicer/RISC split.",
+            "Simple rate models are adequate to detect which stage is the dominant bottleneck, even if they do not capture all molecular details."
+          ],
+          "baseline": "A one-step repression model in which dsRNA input maps directly to target decay with no explicit intermediate guide or loaded-RISC states.",
+          "ablation": "Remove the loading state L, or assume catalytic capacity is non-limiting so that target decay depends only on guide abundance.",
+          "metric": "Out-of-sample fit or information-criterion improvement of the staged model over the one-step model across perturbations that separately alter guide production and effector capacity.",
+          "falsificationCriterion": "If the one-step model predicts target repression as well as the staged model across matched perturbations, and stage-specific perturbations do not reveal distinct bottlenecks, the cascade/queue framing adds no support.",
+          "minimalExperiment": "Across matched perturbations that lower upstream Dicer activity and, separately, alter downstream effector capacity, collect time-resolved readouts of ~22-nt guide levels, target RNA/protein repression, and cleavage-competent RISC proxy activity. Include controls for equal dsRNA exposure and reporter expression, and track confounders such as saturation, nonspecific stress responses, and differences in small-RNA stability.",
+          "resources": [
+            "Time-course reporter dataset rather than endpoint-only silencing",
+            "Readouts for guide abundance, target repression, and effector activity",
+            "Basic dynamical-model fitting and comparison workflow",
+            "A small perturbation matrix spanning upstream and downstream steps"
+          ],
+          "evidenceRefs": [
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p5",
+              "supportingExcerpt": "Our results indicate that the process of RNAi can be divided into at least two distinct steps."
+            },
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p2",
+              "supportingExcerpt": "it seems probable that these enzymes interact at some point during the silencing process, and it remains possible that initiator and effector enzymes share common subunits."
+            },
+            {
+              "documentId": "ago2-2004",
+              "passageId": "p1",
+              "supportingExcerpt": "Thus, our evidence supports a model in which Argonaute contributes “Slicer” activity to RISC, providing the catalytic engine for RNAi."
+            },
+            {
+              "documentId": "ago2-2004",
+              "passageId": "p3",
+              "supportingExcerpt": "the mutant Ago2 proteins were incapable of assembling into a cleavage-competent RISC in vitro or in vivo, despite retaining the ability to bind siRNAs"
+            }
+          ],
+          "noveltyQuestions": [
+            "Have staged dynamical or queueing models of RNAi already been fitted to matched guide-production and cleavage datasets?",
+            "Is there existing evidence that the dominant bottleneck shifts between Dicer-dependent initiation and Argonaute-dependent cleavage in comparable systems?",
+            "Would available measurements distinguish loading from cleavage strongly enough to justify the extra model state?"
+          ],
+          "compatibleTemplate": "rna-silencing"
+        },
+        {
+          "id": "p-speculative-channeling-handoff",
+          "kind": "speculative",
+          "title": "Test whether Dicer hands guides to RISC through a transient coupled assembly state",
+          "hypothesis": "Beyond producing free guide RNAs, Dicer may increase silencing efficiency by transiently coupling guide generation to RISC loading, so that preservation of a Dicer-RISC assembly state raises the fraction of total ~22-nt RNAs that become cleavage-competent guides.",
+          "change": "Replace a pure free-diffusion handoff model with a coupled-handoff model in which guide production and guide loading are partially coordinated by transient Dicer-RISC association or shared components.",
+          "formulation": "Let Gtotal be all ~22-nt products and L be loaded guide within active RISC. Compare uncoupled loading L = k0·Gtotal with coupled loading L = (k0 + ηC)·Gtotal, where C represents a transient coupled assembly state. The hypothesis predicts η > 0: conditions that preserve C increase L/Gtotal without requiring more total ~22-nt production.",
+          "assumptions": [
+            "The paper’s note about interaction or shared subunits could correspond to a functional loading intermediate, not only loose pathway proximity.",
+            "A measurable distinction exists between total ~22-nt products and the subset that enters active RISC.",
+            "Changes in loaded-guide fraction can be interpreted mechanistically only if global small-RNA stability and reporter exposure are controlled."
+          ],
+          "baseline": "A free-diffusion model in which Dicer generates guides and RISC acquires them independently, so loaded-guide fraction is constant once total guide abundance is fixed.",
+          "ablation": "Set C = 0 or η = 0, making loaded-guide fraction depend only on total ~22-nt output.",
+          "metric": "Difference in loaded-guide fraction (L/Gtotal) and in cleavage-competent RISC activity at matched total ~22-nt abundance.",
+          "falsificationCriterion": "If manipulations expected to preserve or disrupt Dicer-RISC association do not change loaded-guide fraction or cleavage-competent activity once total ~22-nt output is matched, the coupled-handoff hypothesis is not supported.",
+          "minimalExperiment": "Compare conditions that differ in physical association context—such as soluble fractions versus fractions enriched for effector activity, with and without Dicer perturbation—and measure both total ~22-nt products and the subset associated with active RISC. Include controls for equal target availability and overall small-RNA recovery, and consider confounders such as fractionation bias, nonspecific co-isolation, and altered small-RNA stability.",
+          "resources": [
+            "Fractionation-compatible lysate workflow already motivated by the paper",
+            "Readouts separating total ~22-nt products from RISC-associated guides",
+            "Functional RISC activity assay",
+            "A limited perturbation set preserving the same reporter/target context"
+          ],
+          "evidenceRefs": [
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p2",
+              "supportingExcerpt": "it seems probable that these enzymes interact at some point during the silencing process, and it remains possible that initiator and effector enzymes share common subunits."
+            },
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p1",
+              "supportingExcerpt": "Dicer also contains a region of homology to the RDE1/QDE2/ ARGONAUTE family"
+            },
+            {
+              "documentId": "dicer-2001",
+              "passageId": "p5",
+              "supportingExcerpt": "These guide RNAs would be incorporated into a distinct nuclease complex (RISC)"
+            },
+            {
+              "documentId": "risc-2000",
+              "passageId": "p3",
+              "supportingExcerpt": "At present, we cannot determine whether the 25-nucleotide RNA is present in the nuclease complex in a double-stranded or single-stranded form."
+            }
+          ],
+          "noveltyQuestions": [
+            "Has transient Dicer-to-RISC substrate channeling already been directly tested in comparable biochemical systems?",
+            "Are there known shared-subunit or co-complex data that would already explain the interaction language in this paper?",
+            "Would observed coupling, if any, reflect specific guide handoff rather than generic co-fractionation of RNA-binding complexes?"
+          ],
+          "compatibleTemplate": null
+        }
+      ]
+    },
+    "collaborator": {
+      "summary": "Missing capabilities for proposal p-incremental-residual-guide-source: (1) matched biochemical measurement of residual Dicer activity, ~22-nt guide abundance, and silencing output; (2) effector-side RISC/loading readouts to distinguish guide production from downstream catalytic limits; and (3) quantitative analysis that compares a single-route residual-Dicer model against a parallel-source model. The strongest collaboration fits, based on the supplied publications, are expertise categories in RNAi biochemistry, small-RNA/RISC coupling assays, and catalytic effector validation. Uncertainty remains because the evidence set is limited to selected passages and does not show direct prior work on the proposal’s specific tri-variate modeling design.",
+      "collaborations": [
+        {
+          "neededCapability": "Biochemical RNAi assay design that links dsRNA perturbation to sequence-specific silencing in cell extracts and reporter systems",
+          "candidateOrExpertiseCategory": "RNA interference biochemistry and cell-free silencing assay expertise",
+          "supportingPublications": [
+            "risc-2000",
+            "dicer-2001"
+          ],
+          "complementaryContributions": [
+            "Adapt matched perturbation conditions so residual Dicer activity and silencing are measured in the same experimental frame",
+            "Help align lysate-based processing assays with reporter-based silencing outputs",
+            "Strengthen controls for sequence-specific silencing versus nonspecific effects in the proposed residual-silencing test"
+          ],
+          "uncertainty": "Supported by supplied biochemical RNAi passages, but the selected evidence does not show prior use of the exact joint Dicer-guide-silencing analysis proposed here."
+        },
+        {
+          "neededCapability": "Measurement of small guide RNA abundance and its relationship to active silencing complexes",
+          "candidateOrExpertiseCategory": "Small-RNA quantification and RISC-associated guide measurement expertise",
+          "supportingPublications": [
+            "risc-2000",
+            "dicer-2001"
+          ],
+          "complementaryContributions": [
+            "Quantify the '~22-nt RNA class' alongside residual Dicer activity",
+            "Separate total small-RNA abundance from RISC-associated guide signals where possible",
+            "Test whether residual silencing tracks guide abundance closely enough to support the single-route model"
+          ],
+          "uncertainty": "The supplied passages support experience with '~25-nucleotide RNA species' and '~22-nucleotide guide sequences', but they do not establish a complete assay for distinguishing all guide pools from only active loaded guides."
+        },
+        {
+          "neededCapability": "Downstream effector readouts that can rule out the alternative explanation that residual silencing is limited by RISC catalytic competence rather than guide production",
+          "candidateOrExpertiseCategory": "Argonaute/RISC catalytic effector expertise",
+          "supportingPublications": [
+            "ago2-2004",
+            "risc-2000"
+          ],
+          "complementaryContributions": [
+            "Add effector-side checks so residual GFP silencing is not attributed to guide supply alone when cleavage competence may vary",
+            "Use catalytic-RISC logic to interpret cases where guide abundance and silencing diverge",
+            "Refine falsification criteria by distinguishing upstream guide-generation effects from downstream cleavage defects"
+          ],
+          "uncertainty": "This fit is indirect for the selected proposal because the supplied Argonaute evidence is later and mammalian, so relevance to the early Drosophila residual-silencing context is conceptual rather than fully matched."
+        }
+      ]
+    },
+    "skeptic": {
+      "summary": "The proposal is well-motivated by the paper’s explicit residual-silencing ambiguity, but its quantitative tri-variate model and causal interpretation go beyond the supplied evidence. The evidence supports testing whether residual silencing reflects \"incomplete suppression of Dicer\" or that \"guide RNAs may be produced by more than one mechanism,\" but it does not support the specific linear/additive formulation or the assumption that total ~22-nt abundance alone cleanly reports functional guide supply.",
+      "critique": {
+        "supported": [
+          "The paper explicitly raises the proposal’s central ambiguity: \"The lack of complete inhibition of silencing may result from an incomplete suppression of Dicer or may indicate that in vivo guide RNAs may be produced by more than one mechanism.\"",
+          "It is supported that Dicer depletion leaves measurable residual activity: \"Transfection with Dicer dsRNA reduces activity in lysates 7.4-fold.\"",
+          "It is supported that Dicer depletion weakens silencing output: \"Depletion of Dicer substantially compromised the ability of cells to silence an exogenous, green fluorescent protein (GFP) transgene by RNAi\".",
+          "The upstream-guide premise is supported in the paper’s model: \"Initiation of PTGS would occur on processing of a dsRNA by Dicer into ~22-nucleotide guide sequences\"."
+        ],
+        "assumptions": [
+          "That residual Dicer activity, ~22-nt RNA abundance, and silencing output can be put on a \"common scale across matched perturbations.\"",
+          "That the measured ~22-nt class is an adequate proxy for functional guide supply, despite the paper calling them \"putative guide RNAs.\"",
+          "That any nonzero extra term in guide abundance should be interpreted as an additional guide source, even though the paper says it \"cannot formally exclude the possibility that another Dicer-associated nuclease may participate in this process.\"",
+          "That reporter output mainly reflects the RNAi mechanism of interest rather than other consequences of Dicer perturbation."
+        ],
+        "unsupported": [
+          "The specific model forms \"G = γD\" and \"S = αG\" are not supported by the supplied passages.",
+          "The additive parallel-source term \"G = γD + δ\" is not stated or implied by the paper; the paper only says guides \"may be produced by more than one mechanism.\"",
+          "The proposal’s inference standard that \"support for a parallel source requires δ > 0\" is a new analytical choice, not evidence-based from the passages.",
+          "The claim that guide production, Dicer activity, and silencing should be jointly modeled rather than compared qualitatively is not supported directly by the supplied text.",
+          "Details such as \"3-5 matched perturbation conditions,\" \"confidence interval on δ,\" and regression/model-comparison workflow are not grounded in the supplied evidence."
+        ],
+        "suggestedChanges": [
+          "Frame the proposal more narrowly as a test of the paper’s stated alternatives: \"incomplete suppression of Dicer\" versus \"guide RNAs may be produced by more than one mechanism.\"",
+          "Preserve the paper’s caution that the small RNAs are \"putative guide RNAs\" rather than treating total ~22-nt abundance as a validated functional guide measure.",
+          "Acknowledge the confound noted by the authors: \"another Dicer-associated nuclease may participate in this process,\" which weakens a simple one-variable mapping from Dicer activity to guide production.",
+          "Avoid presenting the linear/additive equations as evidence-backed; describe them as a speculative analysis framework."
+        ],
+        "verdict": "unresolved"
+      }
+    }
+  }
+}

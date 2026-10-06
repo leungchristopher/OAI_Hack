@@ -1,0 +1,39 @@
+# Dependencies and generated builds
+node_modules/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Local credentials (keep the safe setup template)
+.env
+.env.*
+!.env.example
+
+# Test reports and runtime logs
+test-results/
+playwright-report/
+blob-report/
+*.log
+
+# Python environments, downloaded checkpoints and caches
+.venv/
+.venv*/
+venv/
+__pycache__/
+*.py[cod]
+.cache/
+.cache*/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# User-supplied papers and generated presentation captures
+/papers/
+/output/
+
+# Local machine files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo

@@ -1,0 +1,7 @@
+import 'dotenv/config';
+import OpenAI from 'openai';
+import {readFileSync,writeFileSync,existsSync} from 'node:fs';
+const client=new OpenAI({apiKey:process.env.OPENAI_API_KEY,maxRetries:0,timeout:120000});
+const scenes=JSON.parse(readFileSync('output/demo/narration.json','utf8'));let requests=0;
+for(const scene of scenes){const path=`output/demo/audio/${scene.id}.wav`;if(existsSync(path))continue;const response=await client.audio.speech.create({model:'gpt-4o-mini-tts',voice:'cedar',response_format:'wav',input:scene.text,instructions:'Narrate a thoughtful research software demonstration in natural, clear English. Warm, confident, curious, and conversational. Speak at a measured but engaging pace, about 155 words per minute. No announcer affectation, exaggerated excitement, or music. Pronounce Marginalia as mar-jih-NAY-lee-uh. ACT as the letters A C T. MCTS and UCB as individual letters. MuJoCo as moo-JOH-coh. Smol VLA as small V L A.'});writeFileSync(path,Buffer.from(await response.arrayBuffer()));requests++;console.log(JSON.stringify({scene:scene.id,characters:scene.text.length,status:'saved'}));}
+writeFileSync('output/demo/audio/metadata.json',JSON.stringify({generatedAt:new Date().toISOString(),model:'gpt-4o-mini-tts',voice:'cedar',requests,tokenUsage:'Speech response did not provide token usage.',aiGeneratedNarration:true,source:'https://developers.openai.com/api/docs/guides/text-to-speech'},null,2));

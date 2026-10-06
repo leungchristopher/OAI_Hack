@@ -1,0 +1,5 @@
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+import {lenses} from '../src/data';
+import {ArtifactSchema} from '../shared/contracts';
+mkdirSync('src/data/recorded',{recursive:true});
+for(const lens of lenses){const run=JSON.parse(readFileSync(`/private/tmp/marginalia-live/${lens.id}.json`,'utf8'));if(!run.allComplete)throw new Error('Incomplete recording');const artifacts=Object.fromEntries(run.nodes.filter((n:any)=>!['paper','profile'].includes(n.type)).map((n:any)=>[n.type,ArtifactSchema.parse(n.output)]));const docs=[lens.paper,...lens.profile.publications];function check(v:any){if(Array.isArray(v))v.forEach(check);else if(v&&typeof v==='object'){if(v.documentId&&v.passageId){const p=docs.find(d=>d.id===v.documentId)?.passages.find(p=>p.id===v.passageId);if(!p?.text.includes(v.supportingExcerpt))throw new Error('Recorded evidence mismatch');}Object.values(v).forEach(check)}}check(artifacts);writeFileSync(`src/data/recorded/${lens.id}.json`,JSON.stringify({generatedAt:run.verifiedAt,models:run.models,usage:run.usage,artifacts},null,2));console.log(`${lens.id}: ${Object.keys(artifacts).length} validated model artifacts`)}

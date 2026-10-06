@@ -1,2 +1,3 @@
-# OAI_Hack
-OpenAI GPT-6 Astra Hack
+[Live demo](https://marginalia-research-desk.lovable.app)
+
+![AlphaGo demo](docs/images/alphago-demo.jpg)

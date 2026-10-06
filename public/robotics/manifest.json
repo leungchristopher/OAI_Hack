@@ -1,0 +1,34 @@
+{
+  "status": "recorded",
+  "policyId": "lerobot/act_aloha_sim_transfer_cube_human",
+  "revision": "ba73b2766f1371cdc133ca4efb97eb090d744625",
+  "checkpointUrl": "https://huggingface.co/lerobot/act_aloha_sim_transfer_cube_human/tree/ba73b2766f1371cdc133ca4efb97eb090d744625",
+  "environment": "gym_aloha/AlohaTransferCube-v0",
+  "seed": 7,
+  "videoUrl": "/robotics/act-transfer-cube.mp4",
+  "trajectoryUrl": "/robotics/trajectory.json",
+  "frames": 400,
+  "fps": 50,
+  "durationSeconds": 8.0,
+  "success": false,
+  "maxReward": 2.0,
+  "successCriterion": "Environment reward reaches 4 (cube transferred to left gripper clear of the table).",
+  "recordedAt": "2026-10-06T18:32:23.085489+00:00",
+  "wallSeconds": 5.436443042010069,
+  "device": "cpu",
+  "chunkSize": 100,
+  "actionSteps": 100,
+  "checkpointSha256": "42772891cb6eba1e7bc36ad8e12c0fa0723c61f036fa235c725ce6026e6e81df",
+  "videoSha256": "590a790b2375e979c829bd3b7eb43e9262651947d42abe6af370ddaed8c84b26",
+  "versions": {
+    "lerobot": "0.4.3",
+    "torch": "2.7.1",
+    "mujoco": "3.8.1",
+    "gym-aloha": "0.1.4"
+  },
+  "limitations": [
+    "A recorded execution of the pretrained ACT policy, not browser-side inference.",
+    "One seeded rollout; not a success-rate benchmark.",
+    "Diffusion and SmolVLA are explained alongside ACT; they do not drive this rollout."
+  ]
+}

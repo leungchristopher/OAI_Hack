@@ -1,0 +1,36 @@
+{
+  "status": "recorded",
+  "policyId": "sangil109/diffusion_aloha_sim",
+  "revision": "3bb11d51b9c951a381fb44849b79c7919b50b55d",
+  "checkpointUrl": "https://huggingface.co/sangil109/diffusion_aloha_sim/tree/3bb11d51b9c951a381fb44849b79c7919b50b55d",
+  "environment": "gym_aloha/AlohaTransferCube-v0",
+  "seed": 7,
+  "videoUrl": "/robotics/diffusion-rollout.mp4",
+  "trajectoryUrl": "/robotics/diffusion-trajectory.json",
+  "frames": 400,
+  "fps": 50,
+  "durationSeconds": 8.0,
+  "success": false,
+  "maxReward": 0.0,
+  "successCriterion": "Environment reward reaches 4 (cube transferred to left gripper clear of the table).",
+  "recordedAt": "2026-10-06T18:48:55.253523+00:00",
+  "wallSeconds": 208.26244820805732,
+  "device": "cpu",
+  "chunkSize": 16,
+  "actionSteps": 8,
+  "checkpointSha256": "15a3fb6e8402d00c4c0dc4eb62b481f6508d5429d2f24f49655f6a9ccff989d0",
+  "videoSha256": "1c316e89cdcf2800754986c6d6e5578782fc7223eee9c7dc2967b6170801ad5e",
+  "versions": {
+    "lerobot": "0.4.3",
+    "torch": "2.7.1",
+    "mujoco": "3.8.1",
+    "gym-aloha": "0.1.4"
+  },
+  "posterUrl": "/robotics/diffusion-poster.png",
+  "noiseScheduler": "DDPM",
+  "denoisingSteps": 100,
+  "limitations": [
+    "Recorded execution of a community-published pretrained Diffusion policy with the official LeRobot implementation.",
+    "One seeded rollout; not a success-rate benchmark."
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-10-06T19:03:28.144Z",
+  "experiment": {
+    "kind": "rna",
+    "settings": {
+      "dicer": "active",
+      "ago2": "active",
+      "target": "matched"
+    },
+    "stage": 0
+  },
+  "response": {
+    "output": {
+      "title": "Double-stranded RNA with active Dicer and Ago2 reaches a cleavage-enabled state when the target is matched",
+      "explanation": "Your selected settings are Dicer active, Ago2 active, and target matched, and you are at stage 0. The server-computed baseline is identical, so there is no divergence to explain: both the selected state and baseline start from “Double-stranded RNA” with guide pending, complex pending, and cleavage pending, because the model is still before guide generation and loading. In the supplied Dicer paper, this corresponds to the initiation step in which dsRNA is processed into ~22-nt guide sequences by Dicer, which are then incorporated into RISC; the paper distinguishes that processing step from the effector nuclease activity rather than collapsing them into one function.",
+      "comparison": "Compared with the baseline, your current setting does not change the dependency path: active Dicer supplies guide RNAs, active Ago2 supplies catalytic competence, and a matched target permits guide/target complementarity to route the system toward cleavage. The baseline terminal state is also “Cleavage enabled,” because the model requires all three dependencies together; with Dicer inactive or target mismatched, guide availability or productive pairing would fail, and with Ago2 inactive the complex could load guides but not execute cleavage. The paper evidence supports this division of labor: Dicer makes the guide class of RNA, while Argonaute2 later provides the catalytic engine of RISC.",
+      "paperConnection": "The best match to your setting is the Dicer paper’s two-stage model plus the later Ago2 paper’s catalytic assignment. Bernstein et al. state that RNAi can be divided into initiation by Dicer processing dsRNA into ~22-nt guide sequences and a distinct RISC step that targets mRNA for degradation, while Liu et al. show that Ago2 is the single mammalian Argonaute responsible for messenger RNA cleavage and that catalytic-site mutations abolish cleavage-competent RISC despite siRNA binding. Together, those results justify the model’s requirement that Dicer be active, Ago2 be active, and the target be matched before cleavage is enabled.",
+      "suggestedExperiment": "Change one control to Dicer inactive while keeping Ago2 active and the target matched. The prediction is that guide becomes unavailable, the complex cannot load productively, and cleavage remains disabled even though catalytic Ago2 is present. This cleanly tests the causal claim that guide production is upstream of Argonaute-mediated cleavage rather than interchangeable with it.",
+      "socraticQuestion": "If Ago2 is active but Dicer is switched off, which step fails first in this model: guide availability, complex loading, or cleavage—and what does that imply about where the sequence information enters the pathway?",
+      "evidenceRefs": [
+        {
+          "documentId": "dicer-2001",
+          "passageId": "p5",
+          "supportingExcerpt": "RNAi can be divided into at least two distinct steps. Initiation of PTGS would occur on processing of a dsRNA by Dicer into ~22-nucleotide guide sequences"
+        },
+        {
+          "documentId": "dicer-2001",
+          "passageId": "p2",
+          "supportingExcerpt": "the enzyme that initiates RNAi through processing of dsRNA into 22-nucleotide sequences"
+        },
+        {
+          "documentId": "dicer-2001",
+          "passageId": "p4",
+          "supportingExcerpt": "Transfection with Dicer dsRNA reduces activity in lysates 7.4-fold."
+        },
+        {
+          "documentId": "ago2-2004",
+          "passageId": "p1",
+          "supportingExcerpt": "a single mammalian family member, Argonaute2, being responsible for messenger RNA cleavage activity"
+        },
+        {
+          "documentId": "ago2-2004",
+          "passageId": "p3",
+          "supportingExcerpt": "the mutant Ago2 proteins were incapable of assembling into a cleavage-competent RISC in vitro or in vivo, despite retaining the ability to bind siRNAs"
+        },
+        {
+          "documentId": "risc-2000",
+          "passageId": "p2",
+          "supportingExcerpt": "These results indicate that RNAi ablates target mRNAs through the generation of a sequence-specific nuclease activity."
+        }
+      ]
+    },
+    "usage": {
+      "requests": 1,
+      "inputTokens": 4241,
+      "outputTokens": 880
+    },
+    "model": "gpt-5.4-mini"
+  }
+}
